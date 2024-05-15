@@ -1,0 +1,7 @@
+/mongo/mongo_one/data
+/mongo/mongo_two/data
+/mongo/mongo_three/data
+
+/node-app/node_modules
+/node-app/.env
+/node-app/config.js
