@@ -1,0 +1,32 @@
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures= ["mongodb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  role      Role     @default(USER)
+  posts     Post[]
+}
+enum Role {
+  USER
+  ADMIN
+}
+
+model Item {
+  id string @id @default(dbgenerated()) @map("_id") @id.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean  @default(false)
+  title     String   @db.VarChar(255)
+}
+

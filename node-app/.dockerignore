@@ -1,0 +1,11 @@
+node_modules
+Dockerfile.node
+Dockerfile.nginx
+Dockerfile.mongo
+.dockerignore
+.git
+.gitignore
+docker-compose.backup
+docker-compose.dev
+docker-compose.prod
+docker-compose

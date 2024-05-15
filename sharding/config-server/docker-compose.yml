@@ -1,0 +1,36 @@
+
+version: '3'
+
+services:
+
+  cfgsvr1:
+    container_name: cfgsvr1
+    image: mongo
+    command: mongod --configsvr --replSet cfgrs --port 27017 --dbpath /data/db
+    ports:
+      - 40001:27017
+    volumes:
+      - ./mongo/cfgsvr1/data:/data/db
+
+  cfgsvr2:
+    container_name: cfgsvr2
+    image: mongo
+    command: mongod --configsvr --replSet cfgrs --port 27017 --dbpath /data/db
+    ports:
+      - 40002:27017
+    volumes:
+      - ./mongo/cfgsvr2/data:/data/db
+
+  cfgsvr3:
+    container_name: cfgsvr3
+    image: mongo
+    command: mongod --configsvr --replSet cfgrs --port 27017 --dbpath /data/db
+    ports:
+      - 40003:27017
+    volumes:
+      - ./mongo/cfgsvr3/data:/data/db
+
+# volumes:
+#   cfgsvr1:
+#   cfgsvr2:
+#   cfgsvr3:
