@@ -16,7 +16,7 @@ router.route('/logout').post(controller.logout);
 
 
 // Get Methods
-router.route('/isAuth').get(Auth)
+router.route('/isAuth').get(Auth);
 router.route('/user/profile').get(Auth, cach.getProfileFromCach, controller.getProfile).put(Auth, controller.updateUser).delete(Auth, controller.deleteUser) // user with username
 router.route('/users/:username').get(cach.getUserFromCach, controller.getUser) // user with username
 router.route('/users').get(cach.getUsersFromCash, controller.getUsers) // user with username

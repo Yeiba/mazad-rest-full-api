@@ -17,8 +17,8 @@ export default async function Auth(req, res, next) {
             try {
                 const decodedToken = await jwt.verify(token, process.env.JWT_SECRET)
                 req.user = decodedToken
-                res.status(200).send({ msg: "Authorized user" })
-                // req.user = await UserModel.findById(decodedToken.userId).select('-password')
+                // res.status(200).send({ msg: "Authorized user" })
+
                 next()
 
             } catch (error) {
