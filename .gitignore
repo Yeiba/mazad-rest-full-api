@@ -1,4 +1,4 @@
-mongo
+mongo/
 
 node-app/node_modules
 node-app/.env
