@@ -206,9 +206,9 @@ export async function getProfile(req, res) {
 
                 const key = `GET_PROFILE_${userId}`;
                 // await client.setex(key, 3600, JSON.stringify(encrypted_res));
-                setToCach(key, 3600, encrypted_res)
+                setToCach(key, 3600, { msg: "Get User Info", data: encrypted_res })
 
-                return res.status(200).send(encrypted_res);
+                return res.status(200).send({ msg: "Get User Info", data: encrypted_res });
             })
         } else {
             return res.status(401).send({ error: "User not Found" })
@@ -229,7 +229,7 @@ export async function getUsers(req, res) {
                 return encrypted_res
             })
             const key = `GET_USERS`
-            setToCach(key, 3600, user)
+            setToCach(key, 3600, { data: user })
             return res.status(200).send({ data: user });
         })
     } catch (error) {
