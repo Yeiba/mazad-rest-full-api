@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import ItemModel from '../model/User.model.js'
 // import validator from "validator";
 // const mongoose = require('mongoose')
 
@@ -19,6 +20,9 @@ export const UserSchema = new mongoose.Schema({
         required: [true, "Please provide a unique email"],
         unique: true,
         lowercase: true,
+        // postedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'ItemModel'},
+        // comments: [{ body: "string", by: mongoose.Schema.Types.ObjectId }],
+        // dateCreated: Date,
         // validate: [validator.isEmail, "Please provide a valid email"]
     },
     firstName: { type: String },
