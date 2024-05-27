@@ -50,10 +50,28 @@ export async function register(req, res) {
         const { firstName, lastName, username, email, password, re_password } = req.body;
 
         // check the existing user
-        const existUsername = await UserModel.exists({ username })
+        // const existUsername = await UserModel.exists({ username })
+        const existUsername = await new Promise((resolve, reject) => {
+            UserModel.findOne({ username }).then((user) => {
+
+                // if (err) reject(new Error(err))
+                if (user) reject({ error: "Please use unique username" })
+
+                resolve();
+            })
+        })
 
         // check for existing email
-        const existEmail = await UserModel.exists({ email })
+        // const existEmail = await UserModel.exists({ email })
+        const existEmail = await new Promise((resolve, reject) => {
+            UserModel.findOne({ email }).then((email) => {
+
+                // if (err) reject(new Error(err.message))
+                if (email) reject({ error: "Please use unique email" })
+
+                resolve();
+            })
+        })
 
         Promise.all([existUsername, existEmail])
             .then(() => {
@@ -102,12 +120,12 @@ export async function register(req, res) {
                         error: "password Not Matche"
                     })
                 }
-            }).catch(error => res.status(500).send({ error }))
+            }).catch(error => res.status(500).send(error.message))
 
 
 
     } catch (error) {
-        return res.status(500).send({ error });
+        return res.status(500).send(error);
     }
 
 }
@@ -221,8 +239,14 @@ export async function getProfile(req, res) {
 }
 export async function getUsers(req, res) {
 
+    let queryStr = JSON.stringify(req.query)
+    queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => {
+        `$${match}`
+    })
+    const queryObj = JSON.parse(queryStr)
+
     try {
-        await UserModel.find({}).then(users => {
+        await UserModel.find(req.query).then(users => {
             const user = users.map(user => {
                 const { password, ...rest } = Object.assign({}, user.toJSON())
                 const encrypted_res = key_public.encrypt(rest, 'base64')
