@@ -37,17 +37,18 @@ const port = process.env.PORT || 8080;
 // Api Routes
 app.use('/api', router)
 
-if (process.env.NODE_ENV !== 'production') {
-    const __dirname = path.resolve()
-    app.use(express.static(path.join(__dirname, 'FrontEnd/Mazad/build')))
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'FrontEnd/Mazad/build/index.html'))
-    })
-} else {
-    app.get('/', (req, res) => {
-        res.status(201).json("Home get request")
-    });
-}
+// if (process.env.NODE_ENV !== 'production') {
+//     const __dirname = path.resolve()
+//     app.use(express.static(path.join(__dirname, 'FrontEnd/Mazad/build')))
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'FrontEnd/Mazad/build/index.html'))
+//     })
+// } else {
+// }
+
+app.get('/', (req, res) => {
+    res.status(201).json("Home get request")
+});
 
 app.use(notFoundHandler);
 app.use(errorHandler);
